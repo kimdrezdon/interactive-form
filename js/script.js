@@ -29,7 +29,13 @@ $("#title").change(function() {
 //JS Puns = Cornflower Blue, Dark Slate Grey, Gold
 //I Heart JS = Tomato, Steel Blue, Dim Grey
 //when a new Design is selected, the Color drop down menu is updated
-
+$('#design').change(function() {
+    if ($('#design option:selected').val() === 'js puns') {
+        console.log('puns');
+    } else if ($('#design option:selected').val() === 'heart js') {
+        console.log('heart');
+    }
+});
 
 //EXCEEDS EXPECTATIONS: hide the COLOR label and select menu until a T-Shirt design is selected from the Design menu
 
