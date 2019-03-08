@@ -12,7 +12,7 @@ $('#name').focus();
 
 
 //hide the Other job role text field initially using JS (default = without JS should be visible)
-
+$('#other-title').hide();
 
 //only display the Color options that match the option selected in the Design drop down menu
 //JS Puns = Cornflower Blue, Dark Slate Grey, Gold
