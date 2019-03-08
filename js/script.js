@@ -1,3 +1,5 @@
+const otherTitle = $('#other-title');
+
 //on first page load, set focus on first text input field [focus()?]
 $('#name').focus();
 
@@ -12,7 +14,16 @@ $('#name').focus();
 
 
 //hide the Other job role text field initially using JS (default = without JS should be visible)
-$('#other-title').hide();
+otherTitle.hide();
+
+//display the Other job role text field when Other is selected from the menu
+$("#title").change(function() {
+    if ($('#title option:selected').text() === 'Other') {
+        otherTitle.show();
+    } else {
+        otherTitle.hide();
+    }
+});
 
 //only display the Color options that match the option selected in the Design drop down menu
 //JS Puns = Cornflower Blue, Dark Slate Grey, Gold
