@@ -1,4 +1,7 @@
-const otherTitle = $('#other-title');
+const $otherTitle = $('#other-title');
+const $allColors = $('#color option');
+const $punColors = $('#color option:lt(3)');
+const $heartColors = $('#color option:gt(2)');
 
 //on first page load, set focus on first text input field [focus()?]
 $('#name').focus();
@@ -14,14 +17,14 @@ $('#name').focus();
 
 
 //hide the Other job role text field initially using JS (default = without JS should be visible)
-otherTitle.hide();
+$otherTitle.hide();
 
 //display the Other job role text field when Other is selected from the menu
 $("#title").change(function() {
     if ($('#title option:selected').text() === 'Other') {
-        otherTitle.show();
+        $otherTitle.show();
     } else {
-        otherTitle.hide();
+        $otherTitle.hide();
     }
 });
 
@@ -30,10 +33,11 @@ $("#title").change(function() {
 //I Heart JS = Tomato, Steel Blue, Dim Grey
 //when a new Design is selected, the Color drop down menu is updated
 $('#design').change(function() {
+    $allColors.detach();
     if ($('#design option:selected').val() === 'js puns') {
-        console.log('puns');
+        $('#color').append($punColors);
     } else if ($('#design option:selected').val() === 'heart js') {
-        console.log('heart');
+        $('#color').append($heartColors);
     }
 });
 
