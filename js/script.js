@@ -1,5 +1,5 @@
 //on first page load, set focus on first text input field [focus()?]
-
+$('#name').focus();
 
 //name field can't be blank
 //display an error indication if theres a validation error
