@@ -9,12 +9,18 @@ $('#name').focus();
 //name field can't be blank
 //display an error indication if theres a validation error
 //EXCEEDS EXPECATIONS: real time error message, rather than on submit of the form
+function validName(name) {
+    return /.+/.test(name);
+}
 
+/* $('#name').focusout(); */
 
 //email field must be a validly formatted address
 //display an error indication if theres a validation error
 //EXCEEDS EXPECATIONS: real time error message, rather than on submit of the form
-
+function validEmail(email) {
+    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
+}
 
 //hide the Other job role text field initially using JS (default = without JS should be visible)
 $otherTitle.hide();
@@ -34,9 +40,10 @@ $("#title").change(function() {
 //when a new Design is selected, the Color drop down menu is updated
 $('#design').change(function() {
     $allColors.detach();
-    if ($('#design option:selected').val() === 'js puns') {
+    const $userDesign = $('#design option:selected');
+    if ($userDesign.val() === 'js puns') {
         $('#color').append($punColors);
-    } else if ($('#design option:selected').val() === 'heart js') {
+    } else if ($userDesign.val() === 'heart js') {
         $('#color').append($heartColors);
     }
 });
@@ -51,7 +58,12 @@ $('#design').change(function() {
 
 //when the user selects a workshop, disable the checkbox of conflicting workshops and dim its text
 //when the user unselects a workshop, undisable the conflicting workshops
-
+/* const $checkboxes = $('.activities input');
+$checkboxes.change(function() {
+    if ($('input[name="js-frameworks"] checkbox:selected')) {
+        console.log('js frameworks selected');
+    } 
+}); */
 
 //as the user selects activities, a running total should display below the list of activities
 
