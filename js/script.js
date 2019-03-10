@@ -10,12 +10,14 @@ $('#name').focus();
 //display an error indication if theres a validation error
 //EXCEEDS EXPECATIONS: real time error message, rather than on submit of the form
 function validName(name) {
-    return /.+/.test(name);
+    return /^\D+$/.test(name);
 }
 
-/* $('#name').change(function() {
-
-}); */
+$('#name').keyup(function() {
+    const $nameInput = $('#name').val();
+    const validResult = validName($nameInput);
+    console.log(validResult);
+});
 
 //email field must be a validly formatted address
 //display an error indication if theres a validation error
