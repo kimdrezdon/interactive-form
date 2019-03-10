@@ -13,7 +13,9 @@ function validName(name) {
     return /.+/.test(name);
 }
 
-/* $('#name').focusout(); */
+/* $('#name').change(function() {
+
+}); */
 
 //email field must be a validly formatted address
 //display an error indication if theres a validation error
@@ -45,6 +47,8 @@ $('#design').change(function() {
         $('#color').append($punColors);
     } else if ($userDesign.val() === 'heart js') {
         $('#color').append($heartColors);
+    } else {
+        $('#color').append($allColors);
     }
 });
 
