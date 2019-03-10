@@ -97,9 +97,21 @@ $checkboxes.change(function(){
 });
 
 //as the user selects activities, a running total should display below the list of activities
-const $totalCost = 0;
-const $totalDiv = $('<div>Total Cost: $' + $totalCost + '</div>');
+const $totalDiv = $('<div>Total Cost: $0 </div>');
 $totalDiv.insertAfter($('.activities'));
+
+$checkboxes.change(function(){
+    let totalCost = 0;
+    const $conference = $checkboxes.eq(0);
+    const $workshops = $checkboxes.slice(1);
+    if ($conference.is(":checked")) {
+        totalCost += 200;
+    } 
+    if ($workshops.is(":checked")) {
+        totalCost += 100;
+    }
+    $totalDiv.text('Total Cost: $' + totalCost);
+});
 
 //display only the credit card information (#credit-card div) on page load, hide the Paypal and Bitcoun info
 //if the Credit Card payment option is selected a credit card #, zip code and CVV must be supplied before the form can be submitted
