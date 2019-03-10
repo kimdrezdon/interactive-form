@@ -2,9 +2,14 @@ const $otherTitle = $('#other-title');
 const $allColors = $('#color option');
 const $punColors = $('#color option:lt(3)');
 const $heartColors = $('#color option:gt(2)');
+const $name = $('#name');
+
+/* const $nameError = $('<span>Please type your name.</span>');
+$name.append($nameError);
+$nameError.hide(); */
 
 //on first page load, set focus on first text input field [focus()?]
-$('#name').focus();
+$name.focus();
 
 //name field can't be blank
 //display an error indication if theres a validation error
@@ -13,10 +18,14 @@ function validName(name) {
     return /^\D+$/.test(name);
 }
 
-$('#name').keyup(function() {
-    const $nameInput = $('#name').val();
+$name.keyup(function() {
+    const $nameInput = $name.val();
     const validResult = validName($nameInput);
-    console.log(validResult);
+    if (validResult) {
+        $(this).css('border-color', "");
+    } else {
+        $(this).css('border-color', 'red');
+    }
 });
 
 //email field must be a validly formatted address
