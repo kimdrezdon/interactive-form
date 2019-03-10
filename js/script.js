@@ -20,8 +20,7 @@ function validName(name) {
 
 $name.keyup(function() {
     const $nameInput = $name.val();
-    const validResult = validName($nameInput);
-    if (validResult) {
+    if (validName($nameInput)) {
         $(this).css('border-color', "");
     } else {
         $(this).css('border-color', 'red');
