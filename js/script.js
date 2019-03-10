@@ -73,16 +73,17 @@ $('#design').change(function() {
 //when the user selects a workshop, disable the checkbox of conflicting workshops and dim its text
 //when the user unselects a workshop, undisable the conflicting workshops
 const $checkboxes = $('.activities input:checkbox');
+const $activityLabels = $('.activites label');
 $checkboxes.change(function(){
     if ($checkboxes.eq(1).is(":checked")) {
-        $checkboxes.eq(3).prop('disabled', true);
+        $checkboxes.eq(3).prop('disabled', true).parent().css('color', 'grey');
     } else {
-        $checkboxes.eq(3).prop('disabled', false);
+        $checkboxes.eq(3).prop('disabled', false).parent().css('color', '');
     }
     if ($checkboxes.eq(2).is(":checked")) {
-        $checkboxes.eq(4).prop('disabled', true);
+        $checkboxes.eq(4).prop('disabled', true).parent().css('color', 'grey');
     } else {
-        $checkboxes.eq(4).prop('disabled', false);
+        $checkboxes.eq(4).prop('disabled', false).parent().css('color', '');
     }
 });
 /* const $checkboxes = $('.activities input');
