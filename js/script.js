@@ -3,6 +3,7 @@ const $allColors = $('#color option');
 const $punColors = $('#color option:lt(3)');
 const $heartColors = $('#color option:gt(2)');
 const $name = $('#name');
+const $email = $('#mail');
 
 /* const $nameError = $('<span>Please type your name.</span>');
 $name.append($nameError);
@@ -33,6 +34,15 @@ $name.keyup(function() {
 function validEmail(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 }
+
+$email.keyup(function() {
+    const $emailInput = $email.val();
+    if (validEmail($emailInput)) {
+        $(this).css('border-color', "");
+    } else {
+        $(this).css('border-color', 'red');
+    }
+});
 
 //hide the Other job role text field initially using JS (default = without JS should be visible)
 $otherTitle.hide();
