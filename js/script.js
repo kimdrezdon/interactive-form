@@ -73,7 +73,6 @@ $('#design').change(function() {
 //when the user selects a workshop, disable the checkbox of conflicting workshops and dim its text
 //when the user unselects a workshop, undisable the conflicting workshops
 const $checkboxes = $('.activities input:checkbox');
-const $activityLabels = $('.activites label');
 $checkboxes.change(function(){
     if ($checkboxes.eq(1).is(":checked")) {
         $checkboxes.eq(3).prop('disabled', true).parent().css('color', 'grey');
@@ -86,15 +85,11 @@ $checkboxes.change(function(){
         $checkboxes.eq(4).prop('disabled', false).parent().css('color', '');
     }
 });
-/* const $checkboxes = $('.activities input');
-$checkboxes.change(function() {
-    if ($('input[name="js-frameworks"] checkbox:selected')) {
-        console.log('js frameworks selected');
-    } 
-}); */
 
 //as the user selects activities, a running total should display below the list of activities
-
+const $totalCost = 0;
+const $totalDiv = $('<div>Total Cost: $' + $totalCost + '</div>');
+$totalDiv.insertAfter($('.activities'));
 
 //display only the credit card information (#credit-card div) on page load, hide the Paypal and Bitcoun info
 //if the Credit Card payment option is selected a credit card #, zip code and CVV must be supplied before the form can be submitted
