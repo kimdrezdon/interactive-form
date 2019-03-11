@@ -94,6 +94,16 @@ $checkboxes.change(function(){
     } else {
         $checkboxes.eq(4).prop('disabled', false).parent().css('color', '');
     }
+    if ($checkboxes.eq(3).is(":checked")) {
+        $checkboxes.eq(1).prop('disabled', true).parent().css('color', 'grey');
+    } else {
+        $checkboxes.eq(1).prop('disabled', false).parent().css('color', '');
+    }
+    if ($checkboxes.eq(4).is(":checked")) {
+        $checkboxes.eq(2).prop('disabled', true).parent().css('color', 'grey');
+    } else {
+        $checkboxes.eq(2).prop('disabled', false).parent().css('color', '');
+    }
 });
 
 //as the user selects activities, a running total should display below the list of activities
@@ -123,7 +133,20 @@ $checkboxes.change(function(){
 //CVV should only accept a 3 digit number
 //display an error indication if theres a validation error for any of these three fields
 //EXCEEDS EXPECATIONS: real time error message, rather than on submit of the form
+$('#payment').val('credit card').prop('selected', true);
+$('#credit-card').nextAll().hide();
 
+$('#payment').change(function() {
+    const $userPayment = $('#payment option:selected');
+    $('#payment').nextAll().hide();
+    if ($userPayment.val() === 'credit card') {
+        $('#credit-card').show();
+    } else if ($userPayment.val() === 'paypal') {
+        $('#credit-card').next().show();
+    } else if ($userPayment.val() === 'bitcoin') {
+        $('#credit-card').next().next().show();
+    }
+});
 
 /* EXCEEDS EXPECTATIONS: make an error message conditional (ie: if CC field is blank "Please enter a credit card number" 
 or if it only contains 10 numbers "Please enter a number that is between 13 and 16 digits long") */
