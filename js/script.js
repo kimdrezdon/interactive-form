@@ -60,8 +60,11 @@ $("#title").change(function() {
 //JS Puns = Cornflower Blue, Dark Slate Grey, Gold
 //I Heart JS = Tomato, Steel Blue, Dim Grey
 //when a new Design is selected, the Color drop down menu is updated
+$('#colors-js-puns').hide();
+
 $('#design').change(function() {
     $allColors.detach();
+    $('#colors-js-puns').show();
     const $userDesign = $('#design option:selected');
     if ($userDesign.val() === 'js puns') {
         $('#color').append($punColors);
@@ -69,6 +72,7 @@ $('#design').change(function() {
         $('#color').append($heartColors);
     } else {
         $('#color').append($allColors);
+        $('#colors-js-puns').hide();
     }
 });
 
