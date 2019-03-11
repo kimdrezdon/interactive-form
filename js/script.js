@@ -5,9 +5,9 @@ const $heartColors = $('#color option:gt(2)');
 const $name = $('#name');
 const $email = $('#mail');
 
-/* const $nameError = $('<span>Please type your name.</span>');
-$name.append($nameError);
-$nameError.hide(); */
+const $nameError = $('<p>Please type your name.</p>');
+$name.after($nameError);
+$nameError.hide();
 
 //on first page load, set focus on first text input field [focus()?]
 $name.focus();
@@ -41,6 +41,7 @@ $email.keyup(function() {
         $(this).css('border-color', "");
     } else {
         $(this).css('border-color', 'red');
+        $nameError.show();
     }
 });
 
