@@ -102,14 +102,17 @@ $totalDiv.insertAfter($('.activities'));
 
 $checkboxes.change(function(){
     let totalCost = 0;
-    const $conference = $checkboxes.eq(0);
-    const $workshops = $checkboxes.slice(1);
-    if ($conference.is(":checked")) {
+
+    if ($checkboxes.eq(0).is(":checked")) {
         totalCost += 200;
     } 
-    if ($workshops.is(":checked")) {
-        totalCost += 100;
-    }
+
+    $checkboxes.each(function( i ) {
+        if (i > 0 && $checkboxes.eq(i).is(':checked')) {
+            totalCost += 100;
+        }
+    });
+   
     $totalDiv.text('Total Cost: $' + totalCost);
 });
 
