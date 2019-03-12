@@ -5,16 +5,17 @@ const $heartColors = $('#color option:gt(2)');
 const $name = $('#name');
 const $email = $('#mail');
 
-const $nameError = $('<p>Please type your name.</p>');
-$name.after($nameError);
-$nameError.hide();
-
 //on first page load, set focus on first text input field [focus()?]
 $name.focus();
 
 //name field can't be blank
 //display an error indication if theres a validation error
-//EXCEEDS EXPECATIONS: real time error message, rather than on submit of the form
+//real time error message, rather than on submit of the form
+
+const $nameError = $('<span class="error-span">Name is required</span>');
+$name.after($nameError);
+$nameError.hide();
+
 function validName(name) {
     return /^\D+$/.test(name);
 }
@@ -25,12 +26,18 @@ $name.keyup(function() {
         $(this).css('border-color', "");
     } else {
         $(this).css('border-color', 'red');
+        $nameError.show();
     }
 });
 
 //email field must be a validly formatted address
 //display an error indication if theres a validation error
-//EXCEEDS EXPECATIONS: real time error message, rather than on submit of the form
+//real time error message, rather than on submit of the form
+
+const $emailError = $('<span class="error-span">Please enter a valid email address</span>');
+$email.after($emailError);
+$emailError.hide();
+
 function validEmail(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 }
@@ -41,14 +48,15 @@ $email.keyup(function() {
         $(this).css('border-color', "");
     } else {
         $(this).css('border-color', 'red');
-        $nameError.show();
+        $emailError.show();
     }
 });
 
 //hide the Other job role text field initially using JS (default = without JS should be visible)
+//display the Other job role text field when Other is selected from the menu
+
 $otherTitle.hide();
 
-//display the Other job role text field when Other is selected from the menu
 $("#title").change(function() {
     if ($('#title option:selected').text() === 'Other') {
         $otherTitle.show();
@@ -61,6 +69,8 @@ $("#title").change(function() {
 //JS Puns = Cornflower Blue, Dark Slate Grey, Gold
 //I Heart JS = Tomato, Steel Blue, Dim Grey
 //when a new Design is selected, the Color drop down menu is updated
+//hide the COLOR label and select menu until a T-Shirt design is selected from the Design menu
+
 $('#colors-js-puns').hide();
 
 $('#design').change(function() {
@@ -77,16 +87,9 @@ $('#design').change(function() {
     }
 });
 
-//EXCEEDS EXPECTATIONS: hide the COLOR label and select menu until a T-Shirt design is selected from the Design menu
-
-
-//user must select at least one checkbox in the activities list
-//display an error indication if theres a validation error
-//EXCEEDS EXPECATIONS: real time error message, rather than on submit of the form
-
-
 //when the user selects a workshop, disable the checkbox of conflicting workshops and dim its text
 //when the user unselects a workshop, undisable the conflicting workshops
+
 const $checkboxes = $('.activities input:checkbox');
 $checkboxes.change(function(){
     if ($checkboxes.eq(1).is(":checked")) {
@@ -112,6 +115,7 @@ $checkboxes.change(function(){
 });
 
 //as the user selects activities, a running total should display below the list of activities
+
 const $totalDiv = $('<div>Total Cost: $0 </div>');
 $totalDiv.insertAfter($('.activities'));
 
@@ -131,13 +135,16 @@ $checkboxes.change(function(){
     $totalDiv.text('Total Cost: $' + totalCost);
 });
 
+//user must select at least one checkbox in the activities list
+//display an error indication if theres a validation error
+//error message on submit of the form
+
+
 //display only the credit card information (#credit-card div) on page load, hide the Paypal and Bitcoun info
 //if the Credit Card payment option is selected a credit card #, zip code and CVV must be supplied before the form can be submitted
-//CC should only accept a 13-16 digit number
-//zip code should only accept a 5 digit number
-//CVV should only accept a 3 digit number
-//display an error indication if theres a validation error for any of these three fields
-//EXCEEDS EXPECATIONS: real time error message, rather than on submit of the form
+//display the Paypal info when the user selects Paypal from the dropdown menu, hide the CC and Bitcoin info
+//display the Bitcoin info when the user selects Bitcoin from the dropdown menu, hide the Paypal and CC info
+
 $('#payment').val('credit card').prop('selected', true);
 $('#credit-card').nextAll().hide();
 
@@ -153,14 +160,11 @@ $('#payment').change(function() {
     }
 });
 
+//CC should only accept a 13-16 digit number
+//zip code should only accept a 5 digit number
+//CVV should only accept a 3 digit number
+//display an error indication if theres a validation error for any of these three fields
 /* EXCEEDS EXPECTATIONS: make an error message conditional (ie: if CC field is blank "Please enter a credit card number" 
 or if it only contains 10 numbers "Please enter a number that is between 13 and 16 digits long") */
-
-
-//display the Paypal info when the user selects Paypal from the dropdown menu, hide the CC and Bitcoin info
-
-
-//display the Bitcoin info when the user selects Bitcoin from the dropdown menu, hide the Paypal and CC info
-
 
 //the user should not be able to submit the form without a payment option selected, "Select Payment Method" is not an option

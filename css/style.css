@@ -113,6 +113,16 @@ button:hover {
 	background: #184c62;
 }
 
+.error-span {
+	color: red;
+	position: relative;
+	float: right;
+	text-align: right;
+	width: 50%;
+	bottom: 1em;
+	right: .5em;
+}
+
 /* ================================= 
   Page Styles
 ==================================== */
