@@ -135,11 +135,6 @@ $checkboxes.change(function(){
     $totalDiv.text('Total Cost: $' + totalCost);
 });
 
-//user must select at least one checkbox in the activities list
-//display an error indication if theres a validation error
-//error message on submit of the form
-
-
 //display only the credit card information (#credit-card div) on page load, hide the Paypal and Bitcoun info
 //if the Credit Card payment option is selected a credit card #, zip code and CVV must be supplied before the form can be submitted
 //display the Paypal info when the user selects Paypal from the dropdown menu, hide the CC and Bitcoin info
@@ -168,3 +163,20 @@ $('#payment').change(function() {
 or if it only contains 10 numbers "Please enter a number that is between 13 and 16 digits long") */
 
 //the user should not be able to submit the form without a payment option selected, "Select Payment Method" is not an option
+
+//user must select at least one checkbox in the activities list
+//display an error indication if theres a validation error
+//error message on submit of the form
+
+const $activitiesError = $('<span class="error-span">At least one activity must be selected</span>');
+$('.activities').after($activitiesError);
+$activitiesError.hide();
+
+$('form').submit(function(e) {
+    alert("Please fix the errors before submitting");
+    const $activitiesChecked = $('input:checked').length;
+    if ($activitiesChecked < 1) {
+        $activitiesError.show();
+    }
+    e.preventDefault();
+});
