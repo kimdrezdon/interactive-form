@@ -14,10 +14,13 @@ $name.focus();
 //name field can't be blank
 //display an error indication if theres a validation error
 //real time error message, rather than on submit of the form
+function appendError(parent, span) {
+    parent.append(span);
+    span.hide();
+}
 
 const $nameError = $('<span class="error-span">This field is required</span>');
-$('label[for="name"]').append($nameError);
-$nameError.hide();
+appendError($('label[for="name"]'), $nameError);
 
 function validName(name) {
     return /^\D+$/.test(name);
@@ -39,8 +42,7 @@ $name.keyup(function() {
 //real time error message, rather than on submit of the form
 
 const $emailError = $('<span class="error-span">Please enter a valid email address</span>');
-$('label[for="mail"]').append($emailError);
-$emailError.hide();
+appendError($('label[for="mail"]'), $emailError);
 
 function validEmail(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
@@ -96,6 +98,7 @@ $('#design').change(function() {
 //when the user unselects a workshop, undisable the conflicting workshops
 
 const $checkboxes = $('.activities input:checkbox');
+
 $checkboxes.change(function(){
     if ($checkboxes.eq(1).is(":checked")) {
         $checkboxes.eq(3).prop('disabled', true).parent().css('color', 'grey');
@@ -160,22 +163,6 @@ $('#payment').change(function() {
     }
 });
 
-//user must select at least one checkbox in the activities list
-//display an error indication if theres a validation error
-//error message on submit of the form
-
-const $activitiesError = $('<span class="error-span">At least one activity must be selected</span>');
-$('.activities legend').append($activitiesError);
-$activitiesError.hide();
-
-$('form').submit(function(e) {
-    const $activitiesChecked = $('input:checked').length;
-    if ($activitiesChecked === 0) {
-        $activitiesError.show();
-    }
-    e.preventDefault();
-});
-
 
 //CC should only accept a 13-16 digit number
 //zip code should only accept a 5 digit number
@@ -232,8 +219,25 @@ zipCode.addEventListener('change', validListener(validZip));
 cvv.addEventListener('change', validListener(validCvv));
 
 
+//user must select at least one checkbox in the activities list
+//display an error indication if theres a validation error
+//error message on submit of the form
+
+const $activitiesError = $('<span class="error-span">At least one activity must be selected</span>');
+$('.activities legend').append($activitiesError);
+$activitiesError.hide();
+
+$('form').submit(function(e) {
+    const $activitiesChecked = $('input:checked').length;
+    if ($activitiesChecked === 0) {
+        $activitiesError.show();
+    }
+    e.preventDefault();
+});
+
 /* 
-need to make the form check all validation upon submit - form cannot
+need to make the form check all validation upon submit SINGLE EVENT LISTENER 
+FOR THE FORM, CALLING EACH SECTIONS VALIDATOR FUNCTION- form cannot
 be submitted (the page does not refresh when the submit button is 
 clicked) until all the following are true (name isn't blank, email is
 validly formatted, at least one checkbox is selected, if cc is selected
