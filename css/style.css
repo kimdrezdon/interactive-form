@@ -14,17 +14,22 @@ button {
 
 body {
   font: 1em/1.5;
-  color: #184f68;
-	background: #accbd9;
+  color: #352208;
+	background: #7B6B43;
 }
 
 header {
-	text-align: center;  
+	text-align: center;
+	color: #FCD0A1;
+}
+
+header span {
+	font-size: 2.2em;
 }
 
 h1 {
 	font-size: 2.5em;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+	text-shadow: 0 1px 0 #E1AA7D;
 	margin: 0;
 }
 
@@ -38,7 +43,7 @@ a {
 
 form {
 	padding: .875em 1.875em 1.875em;
-	background: #85b5ca;
+	background: #E1AA7D;
 }
 
 fieldset,
@@ -60,7 +65,7 @@ button {
 legend {
 	font-weight: 500;
 	padding-top: .5em;
-	border-top: 2px solid #679cb3;
+	border-top: 2px solid #C48370;
 	margin-bottom: 1.125em;
 }
 
@@ -71,7 +76,7 @@ legend {
 }
 
 label {
-	color: #000;
+	color: #352208;
 	display: block;
 	margin-bottom: .5em;
 }
@@ -85,14 +90,15 @@ input {
 	font-size: 1em;
 	font-weight: 500;
 	padding: .8em;
-	background: #c1deeb;
-	border: 2px solid #c1deeb;
+	background: #FCD0A1;
+	border: 2px solid #FCD0A1;
+	border-radius: 1em;
 	outline: none;
 }
 
 input:focus {
 	background: #fff;
-	border-color: #5e97b0;
+	border-color: #C48370;
 	transition: border-color .4s, background-color .4s;
 }
 
@@ -104,23 +110,23 @@ input[type="radio"] {
 button {
 	color: #fff;
 	padding: .55em 1.25em;
-	background: #22627e;
+	background: #C48370;
 	margin: 1.25em 0 .5em;
 	cursor: pointer;
 }
 
 button:hover {
-	background: #184c62;
+	background: #7B6B43;
 }
 
 .error-span {
-	color: red;
+	color: #DF0101;
+	font-size: .9em;
 	position: relative;
-	float: right;
+	/* float: right;
 	text-align: right;
-	width: 50%;
-	bottom: 1em;
-	right: .5em;
+	width: 50%; */
+	left: 1em;
 }
 
 /* ================================= 
