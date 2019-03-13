@@ -4,6 +4,9 @@ const $punColors = $('#color option:lt(3)');
 const $heartColors = $('#color option:gt(2)');
 const $name = $('#name');
 const $email = $('#mail');
+const ccNum = document.querySelector('#cc-num');
+const zipCode = document.querySelector('#zip');
+const cvv = document.querySelector('#cvv');
 
 //on first page load, set focus on first text input field [focus()?]
 $name.focus();
@@ -12,7 +15,7 @@ $name.focus();
 //display an error indication if theres a validation error
 //real time error message, rather than on submit of the form
 
-const $nameError = $('<span class="error-span">Name is required</span>');
+const $nameError = $('<span class="error-span">This field is required</span>');
 $name.after($nameError);
 $nameError.hide();
 
@@ -155,15 +158,6 @@ $('#payment').change(function() {
     }
 });
 
-//CC should only accept a 13-16 digit number
-//zip code should only accept a 5 digit number
-//CVV should only accept a 3 digit number
-//display an error indication if theres a validation error for any of these three fields
-/* EXCEEDS EXPECTATIONS: make an error message conditional (ie: if CC field is blank "Please enter a credit card number" 
-or if it only contains 10 numbers "Please enter a number that is between 13 and 16 digits long") */
-
-//the user should not be able to submit the form without a payment option selected, "Select Payment Method" is not an option
-
 //user must select at least one checkbox in the activities list
 //display an error indication if theres a validation error
 //error message on submit of the form
@@ -173,10 +167,64 @@ $('.activities').after($activitiesError);
 $activitiesError.hide();
 
 $('form').submit(function(e) {
-    alert("Please fix the errors before submitting");
     const $activitiesChecked = $('input:checked').length;
-    if ($activitiesChecked < 1) {
+    if ($activitiesChecked === 0) {
         $activitiesError.show();
     }
     e.preventDefault();
 });
+
+
+//CC should only accept a 13-16 digit number
+//zip code should only accept a 5 digit number
+//CVV should only accept a 3 digit number
+//display an error indication if theres a validation error for any of these three fields
+/* EXCEEDS EXPECTATIONS: make an error message conditional (ie: if CC field is blank "Please enter a credit card number" 
+or if it only contains 10 numbers "Please enter a number that is between 13 and 16 digits long") */
+
+//the user should not be able to submit the form without a payment option selected, "Select Payment Method" is not an option
+
+const $ccError = $('<span class="error-span">This field is required</span>');
+$('#cc-num').after($ccError);
+$ccError.hide();
+
+function validCredit(creditCard) {
+    return /^\d{13,16}$/.test(creditCard);
+}
+
+const $zipError = $('<span class="error-span">Please enter a valid zip code</span>');
+$('#zip').after($zipError);
+$zipError.hide();
+
+function validZip(zipCode) {
+    return /^\d{5}$/.test(zipCode);
+}
+
+const $cvvError = $('<span class="error-span">Please enter a valid CVV</span>');
+$('#cvv').after($cvvError);
+$cvvError.hide();
+
+function validCvv(cvv) {
+    return /^\d{3}$/.test(cvv);
+}
+
+function validListener(validator) {
+    return e => {
+        const userInput = e.target.value;
+        const validatorResult = validator(userInput);
+        const valid = userInput !== "" && validatorResult;
+        const errorSpan = e.target.nextElementSibling;
+        if (valid) {
+            e.target.style.borderColor = '';
+        } else {
+            e.target.style.borderColor = 'red';
+            errorSpan.style.display = '';
+        }
+    }
+}
+
+ccNum.addEventListener('change', validListener(validCredit));
+
+zipCode.addEventListener('change', validListener(validZip));
+
+cvv.addEventListener('change', validListener(validCvv));
