@@ -121,7 +121,7 @@ $checkboxes.change(function(){
 
 //as the user selects activities, a running total should display below the list of activities
 
-const $totalDiv = $('<div>Total Cost: $0 </div>');
+const $totalDiv = $('<div>Total Cost: $0.00 </div>');
 $totalDiv.insertAfter($('.activities'));
 
 $checkboxes.change(function(){
@@ -137,7 +137,7 @@ $checkboxes.change(function(){
         }
     });
    
-    $totalDiv.text('Total Cost: $' + totalCost);
+    $totalDiv.text('Total Cost: $' + totalCost + '.00');
 });
 
 //display only the credit card information (#credit-card div) on page load, hide the Paypal and Bitcoun info
@@ -250,8 +250,6 @@ try to refactor to get rid of validListener function - i don't really
 understand it and it only works on input because it uses e.target
 
 refactor to get rid of repeating creations of error messages
-
-try to get error messages to appear to the right side of the label field
 
 try to get ok message to appear in the same place as the error message
 when correctly formatted
