@@ -197,7 +197,23 @@ function validCvv(cvv) {
     return /^\d{3}$/.test(cvv);
 }
 
-function validListener(validator) {
+function validPayment () {
+    const $ccInput = $('#cc-num').val();
+    const $zipInput = $('#zip').val();
+    const $cvvInput = $('#cvv').val();
+
+    if ($('#payment option:selected').val() === 'credit card') {
+        if (validCredit($ccInput) && validZip($zipInput) && validCvv($cvvInput)) {
+            console.log('credit information valid');
+            return true;
+        } else {
+            console.log('credit information invalid');
+            return false;
+        }
+    } 
+}
+
+/* function validListener(validator) {
     return e => {
         const userInput = e.target.value;
         const validatorResult = validator(userInput);
@@ -210,13 +226,13 @@ function validListener(validator) {
             errorSpan.style.display = '';
         }
     }
-}
+} */
 
-ccNum.addEventListener('change', validListener(validCredit));
+/* ccNum.addEventListener('change', validListener(validCredit));
 
 zipCode.addEventListener('change', validListener(validZip));
 
-cvv.addEventListener('change', validListener(validCvv));
+cvv.addEventListener('change', validListener(validCvv)); */
 
 
 //user must select at least one checkbox in the activities list
@@ -238,7 +254,8 @@ function validActivity () {
 
 $('form').submit(function(e) {
     const a = validActivity();
-    if (a) {
+    const b = validPayment();
+    if (a && b) {
         console.log('form submitted');
     } else {
         e.preventDefault();
