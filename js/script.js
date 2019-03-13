@@ -16,7 +16,7 @@ $name.focus();
 //real time error message, rather than on submit of the form
 
 const $nameError = $('<span class="error-span">This field is required</span>');
-$name.after($nameError);
+$('label[for="name"]').append($nameError);
 $nameError.hide();
 
 function validName(name) {
@@ -27,6 +27,7 @@ $name.keyup(function() {
     const $nameInput = $name.val();
     if (validName($nameInput)) {
         $(this).css('border-color', "");
+        $nameError.hide();
     } else {
         $(this).css('border-color', 'red');
         $nameError.show();
@@ -38,7 +39,7 @@ $name.keyup(function() {
 //real time error message, rather than on submit of the form
 
 const $emailError = $('<span class="error-span">Please enter a valid email address</span>');
-$email.after($emailError);
+$('label[for="mail"]').append($emailError);
 $emailError.hide();
 
 function validEmail(email) {
@@ -49,6 +50,7 @@ $email.keyup(function() {
     const $emailInput = $email.val();
     if (validEmail($emailInput)) {
         $(this).css('border-color', "");
+        $emailError.hide();
     } else {
         $(this).css('border-color', 'red');
         $emailError.show();
@@ -163,7 +165,7 @@ $('#payment').change(function() {
 //error message on submit of the form
 
 const $activitiesError = $('<span class="error-span">At least one activity must be selected</span>');
-$('.activities').after($activitiesError);
+$('.activities legend').append($activitiesError);
 $activitiesError.hide();
 
 $('form').submit(function(e) {
@@ -228,3 +230,29 @@ ccNum.addEventListener('change', validListener(validCredit));
 zipCode.addEventListener('change', validListener(validZip));
 
 cvv.addEventListener('change', validListener(validCvv));
+
+
+/* 
+need to make the form check all validation upon submit - form cannot
+be submitted (the page does not refresh when the submit button is 
+clicked) until all the following are true (name isn't blank, email is
+validly formatted, at least one checkbox is selected, if cc is selected
+cc number zip code and cvv are validly formatted) - error messages
+for all of these need to appear upon submit as well
+
+only validate credit card fields IF credit card payment method is 
+selected
+
+keep real time validation of name and email
+add extra conditional message for email address
+
+try to refactor to get rid of validListener function - i don't really 
+understand it and it only works on input because it uses e.target
+
+refactor to get rid of repeating creations of error messages
+
+try to get error messages to appear to the right side of the label field
+
+try to get ok message to appear in the same place as the error message
+when correctly formatted
+ */
