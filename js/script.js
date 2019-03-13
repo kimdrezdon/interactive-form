@@ -14,8 +14,8 @@ $name.focus();
 //name field can't be blank
 //display an error indication if theres a validation error
 //real time error message, rather than on submit of the form
-function appendError(parent, span) {
-    parent.append(span);
+function appendError(element, span) {
+    element.append(span);
     span.hide();
 }
 
@@ -224,15 +224,26 @@ cvv.addEventListener('change', validListener(validCvv));
 //error message on submit of the form
 
 const $activitiesError = $('<span class="error-span">At least one activity must be selected</span>');
-$('.activities legend').append($activitiesError);
-$activitiesError.hide();
+appendError($('.activities legend'), $activitiesError);
 
-$('form').submit(function(e) {
+function validActivity () {
     const $activitiesChecked = $('input:checked').length;
     if ($activitiesChecked === 0) {
         $activitiesError.show();
+        return false;
+    } else {
+        return true;
     }
-    e.preventDefault();
+}
+
+$('form').submit(function(e) {
+    const a = validActivity();
+    if (a) {
+        console.log('form submitted');
+    } else {
+        e.preventDefault();
+        console.log('form not submitted');
+    }
 });
 
 /* 
