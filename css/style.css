@@ -13,8 +13,8 @@ button {
 }
 
 body {
-  font: 1em/1.5;
-  color: #352208;
+  	font: 1em/1.5;
+  	color: #352208;
 	background: #877953;
 }
 
@@ -121,14 +121,28 @@ button:hover {
 	background: #7B6B43;
 }
 
-.error-span {
+span.error {
 	color: #DF0101;
 	font-size: .9em;
 	position: relative;
-	/* float: right;
-	text-align: right;
-	width: 50%; */
 	left: 1em;
+}
+
+p.error {
+	color: #DF0101;
+	position: relative;
+}
+
+div.error {
+    color: #DF0101;
+    background-color: #E1AA7D;
+	padding: 1em;
+	text-align: center;
+    border-radius: 1em;
+    display: block;
+	max-width: 680px;
+	margin: auto;
+    margin-bottom: 1em;
 }
 
 /* ================================= 
@@ -182,7 +196,7 @@ button:hover {
 
 @media (min-width: 680px) {
 	header {
-		padding: 4.65em 0 2.5em;
+		padding: 3.8em 0 2.5em;
 	}
 	.col {
 		float: left;
