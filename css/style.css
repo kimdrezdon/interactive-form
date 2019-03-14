@@ -3,7 +3,7 @@
 ==================================== */
 
 * {
-  box-sizing: border-box;
+  	box-sizing: border-box;
 }
 
 body,
@@ -35,7 +35,7 @@ h1 {
 }
 
 a {
-  text-decoration: none;
+  	text-decoration: none;
 }
 
 /* ================================= 
@@ -176,9 +176,9 @@ div.error {
 }
 
 .clearfix::after {
-  content: " ";
-  display: table;
-  clear: both;
+  	content: " ";
+  	display: table;
+  	clear: both;
 }
 
 /* ================================= 

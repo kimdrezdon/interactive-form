@@ -14,7 +14,7 @@ const $zipCode = $('#zip');
 const $cvv = $('#cvv');
 
 //add novalidate attribute to form to prevent default validation pop ups
-$('form').attr('novalidate','novalidate');
+$('form').attr('novalidate', 'novalidate');
 
 //on first page load, set focus on Name input field
 $name.focus();
@@ -35,7 +35,7 @@ function nameTest(name) {
 }
 
 //function to check validity of users input for Name, format border, and hide or display error message
-function validName () {
+function validName() {
     const $nameInput = $name.val();
     if (nameTest($nameInput)) {
         $name.css('border-color', "");
@@ -49,7 +49,7 @@ function validName () {
 }
 
 //run the validName function to display validation error in real time
-$name.keyup(function() {
+$name.keyup(function () {
     validName();
 });
 
@@ -63,7 +63,7 @@ function emailTest(email) {
 }
 
 //function to check validity of users input for Email, format border, and hide or display error message
-function validEmail () {
+function validEmail() {
     const $emailInput = $email.val();
     if (emailTest($emailInput)) {
         $email.css('border-color', "");
@@ -77,7 +77,7 @@ function validEmail () {
 }
 
 //run the validEmail function to display validation error in real time
-$email.keyup(function() {
+$email.keyup(function () {
     validEmail();
 });
 
@@ -85,7 +85,7 @@ $email.keyup(function() {
 $otherTitle.hide();
 
 //display the Other job role text field when Other is selected from the menu
-$("#title").change(function() {
+$("#title").change(function () {
     if ($('#title option:selected').text() === 'Other') {
         $otherTitle.show();
     } else {
@@ -99,7 +99,7 @@ $colorDiv.hide();
 //only display the Color options that match the option selected in the Design drop down menu
 //when a new Design is selected, the Color drop down menu is updated
 //display the Color label and select menu only when a T-Shirt design is selected from the Design menu
-$('#design').change(function() {
+$('#design').change(function () {
     $allColors.detach();
     $colorDiv.show();
     const $userDesign = $('#design option:selected');
@@ -115,7 +115,7 @@ $('#design').change(function() {
 
 //when the user selects a workshop, disable the checkbox of conflicting workshops and grey-out its text
 //when the user unselects a workshop, re-enable the conflicting workshops
-$checkboxes.change(function(){
+$checkboxes.change(function () {
     if ($checkboxes.eq(1).is(":checked")) {
         $checkboxes.eq(3).prop('disabled', true).parent().css('color', 'grey');
     } else {
@@ -143,12 +143,12 @@ const $totalDiv = $('<div>Total Cost: $0.00 </div>');
 $totalDiv.insertAfter($('.activities'));
 
 //as the user selects and deselects activities, update the running total cost
-$checkboxes.change(function(){
+$checkboxes.change(function () {
     let totalCost = 0;
     if ($checkboxes.eq(0).is(":checked")) {
         totalCost += 200;
-    } 
-    $checkboxes.each(function( i ) {
+    }
+    $checkboxes.each(function (i) {
         if (i > 0 && $checkboxes.eq(i).is(':checked')) {
             totalCost += 100;
         }
@@ -161,7 +161,7 @@ const $activitiesError = $('<span class="error">At least one activity must be se
 appendError($('.activities legend'), $activitiesError);
 
 //function to make sure user selects at least on checkbox in the activities list, and display or hide error message
-function validActivity () {
+function validActivity() {
     const $activitiesChecked = $('input:checked').length;
     if ($activitiesChecked === 0) {
         $activitiesError.show();
@@ -176,7 +176,7 @@ $paymentMethod.val('credit card').prop('selected', true);
 $creditDiv.nextAll().hide();
 
 //display the correct payment div when the user selects Paypal, CC or Bitcoin from the dropdown menu
-$paymentMethod.change(function() {
+$paymentMethod.change(function () {
     const $userPayment = $('#payment option:selected');
     $paymentMethod.nextAll().hide();
     if ($userPayment.val() === 'credit card') {
@@ -201,7 +201,7 @@ function creditTest(creditCard) {
 }
 
 //function to check validity of users input for Card Number, format border, and hide or display conditional error message
-function validCredit () {
+function validCredit() {
     const $ccInput = $ccNum.val();
     if ($ccInput === "") {
         $ccNum.css('border-color', 'red');
@@ -231,7 +231,7 @@ function zipTest(zipCode) {
 }
 
 //function to check validity of users input for Zip Code, format border, and hide or display error message
-function validZip () {
+function validZip() {
     const $zipInput = $zipCode.val();
     if (zipTest($zipInput)) {
         $zipCode.css('border-color', "");
@@ -254,7 +254,7 @@ function cvvTest(cvv) {
 }
 
 //function to check validity of users input for CVV, format border, and hide or display error message
-function validCvv () {
+function validCvv() {
     const $cvvInput = $cvv.val();
     if (cvvTest($cvvInput)) {
         $cvv.css('border-color', "");
@@ -300,7 +300,7 @@ $submitError.hide();
 //upon submit of form, check validation of all required fields
 //if any invalid fields prevent default page refresh, display all error messages, display submit error div 
 //if all required fields are valid, submit form and display confirmation alert
-$('form').submit(function(e) {
+$('form').submit(function (e) {
     const a = validActivity();
     const b = validPayment();
     const c = validName();
