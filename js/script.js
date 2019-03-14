@@ -1,17 +1,17 @@
+const $name = $('#name');
+const $email = $('#mail');
 const $otherTitle = $('#other-title');
+const $colorDiv = $('#colors-js-puns');
+const $colorMenu = $('#color');
 const $allColors = $('#color option');
 const $punColors = $('#color option:lt(3)');
 const $heartColors = $('#color option:gt(2)');
-const $name = $('#name');
-const $email = $('#mail');
 const $checkboxes = $('.activities input:checkbox');
+const $paymentMethod = $('#payment');
+const $creditDiv = $('#credit-card');
 const $ccNum = $('#cc-num');
 const $zipCode = $('#zip');
 const $cvv = $('#cvv');
-const $paymentMethod = $('#payment');
-const $colorMenu = $('#color');
-const $colorDiv = $('#colors-js-puns');
-const $creditDiv = $('#credit-card');
 
 //add novalidate attribute to form to prevent default validation pop ups
 $('form').attr('novalidate','novalidate');
