@@ -192,7 +192,7 @@ $paymentMethod.change(function() {
 const $ccBlankError = $('<p class="error">Please enter a valid credit card number</p>');
 appendError($creditDiv, $ccBlankError);
 
-const $ccError = $('<p class="error">Please enter a number that is between 13 and 16 digits long</p>');
+const $ccError = $('<p class="error">Please enter a credit card number that is between 13 and 16 digits long</p>');
 appendError($creditDiv, $ccError);
 
 //function to validate format of users input for Card Number
@@ -206,6 +206,7 @@ function validCredit () {
     if ($ccInput === "") {
         $ccNum.css('border-color', 'red');
         $ccBlankError.show();
+        $ccError.hide();
         return false;
     } else if (creditTest($ccInput)) {
         $ccNum.css('border-color', "");
@@ -215,6 +216,7 @@ function validCredit () {
     } else {
         $ccNum.css('border-color', 'red');
         $ccError.show();
+        $ccBlankError.hide();
         return false;
     }
 }
