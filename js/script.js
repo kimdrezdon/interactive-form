@@ -4,9 +4,6 @@ const $punColors = $('#color option:lt(3)');
 const $heartColors = $('#color option:gt(2)');
 const $name = $('#name');
 const $email = $('#mail');
-const ccNum = document.querySelector('#cc-num');
-const zipCode = document.querySelector('#zip');
-const cvv = document.querySelector('#cvv');
 
 //on first page load, set focus on first text input field [focus()?]
 $name.focus();
@@ -14,49 +11,61 @@ $name.focus();
 //name field can't be blank
 //display an error indication if theres a validation error
 //real time error message, rather than on submit of the form
-function appendError(element, span) {
-    element.append(span);
-    span.hide();
+function appendError(element, error) {
+    element.append(error);
+    error.hide();
 }
 
-const $nameError = $('<span class="error-span">This field is required</span>');
+const $nameError = $('<span class="error">Please enter a name</span>');
 appendError($('label[for="name"]'), $nameError);
 
-function validName(name) {
+function nameTest(name) {
     return /^\D+$/.test(name);
 }
 
-$name.keyup(function() {
+function validName () {
     const $nameInput = $name.val();
-    if (validName($nameInput)) {
-        $(this).css('border-color', "");
+    if (nameTest($nameInput)) {
+        $name.css('border-color', "");
         $nameError.hide();
+        return true;
     } else {
-        $(this).css('border-color', 'red');
+        $name.css('border-color', 'red');
         $nameError.show();
+        return false;
     }
+}
+
+$name.keyup(function() {
+    validName();
 });
 
 //email field must be a validly formatted address
 //display an error indication if theres a validation error
 //real time error message, rather than on submit of the form
 
-const $emailError = $('<span class="error-span">Please enter a valid email address</span>');
+const $emailError = $('<span class="error">Please enter a valid email address</span>');
 appendError($('label[for="mail"]'), $emailError);
 
-function validEmail(email) {
+function emailTest(email) {
     return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 }
 
-$email.keyup(function() {
+function validEmail () {
     const $emailInput = $email.val();
-    if (validEmail($emailInput)) {
-        $(this).css('border-color', "");
+    if (emailTest($emailInput)) {
+        $email.css('border-color', "");
         $emailError.hide();
+        return true;
     } else {
-        $(this).css('border-color', 'red');
+        $email.css('border-color', 'red');
         $emailError.show();
+        return false;
     }
+}
+
+$email.keyup(function() {
+    validEmail();
 });
 
 //hide the Other job role text field initially using JS (default = without JS should be visible)
@@ -140,7 +149,7 @@ $checkboxes.change(function(){
         }
     });
    
-    $totalDiv.text('Total Cost: $' + totalCost + '.00');
+    $totalDiv.text('Total Cost:  $' + totalCost + '.00');
 });
 
 //display only the credit card information (#credit-card div) on page load, hide the Paypal and Bitcoun info
@@ -171,75 +180,103 @@ $('#payment').change(function() {
 /* EXCEEDS EXPECTATIONS: make an error message conditional (ie: if CC field is blank "Please enter a credit card number" 
 or if it only contains 10 numbers "Please enter a number that is between 13 and 16 digits long") */
 
-//the user should not be able to submit the form without a payment option selected, "Select Payment Method" is not an option
+const $ccBlankError = $('<p class="error">Please enter a valid credit card number</p>');
+appendError($('#credit-card'), $ccBlankError);
 
-const $ccError = $('<span class="error-span">This field is required</span>');
-$('#cc-num').after($ccError);
-$ccError.hide();
+const $ccError = $('<p class="error">Please enter a number that is between 13 and 16 digits long</p>');
+appendError($('#credit-card'), $ccError);
 
-function validCredit(creditCard) {
+function creditTest(creditCard) {
     return /^\d{13,16}$/.test(creditCard);
 }
 
-const $zipError = $('<span class="error-span">Please enter a valid zip code</span>');
-$('#zip').after($zipError);
-$zipError.hide();
+function validCredit () {
+    const $ccInput = $('#cc-num').val();
+    if ($ccInput === "") {
+        $('#cc-num').css('border-color', 'red');
+        $ccBlankError.show();
+        return false;
+    } else if (creditTest($ccInput)) {
+        $('#cc-num').css('border-color', "");
+        $ccError.hide();
+        $ccBlankError.hide();
+        return true;
+    } else {
+        $('#cc-num').css('border-color', 'red');
+        $ccError.show();
+        return false;
+    }
+}
 
-function validZip(zipCode) {
+const $zipError = $('<p class="error">Please enter a valid zip code</p>');
+appendError($('#credit-card'), $zipError);
+
+function zipTest(zipCode) {
     return /^\d{5}$/.test(zipCode);
 }
 
-const $cvvError = $('<span class="error-span">Please enter a valid CVV</span>');
-$('#cvv').after($cvvError);
-$cvvError.hide();
+function validZip () {
+    const $zipInput = $('#zip').val();
+    if (zipTest($zipInput)) {
+        $('#zip').css('border-color', "");
+        $zipError.hide();
+        return true;
+    } else {
+        $('#zip').css('border-color', 'red');
+        $zipError.show();
+        return false;
+    }
+}
+    
+const $cvvError = $('<p class="error">Please enter a valid CVV</p>');
+appendError($('#credit-card'), $cvvError);
 
-function validCvv(cvv) {
+function cvvTest(cvv) {
     return /^\d{3}$/.test(cvv);
 }
 
-function validPayment () {
-    const $ccInput = $('#cc-num').val();
-    const $zipInput = $('#zip').val();
+function validCvv () {
     const $cvvInput = $('#cvv').val();
+    if (cvvTest($cvvInput)) {
+        $('#cvv').css('border-color', "");
+        $cvvError.hide();
+        return true;
+    } else {
+        $('#cvv').css('border-color', 'red');
+        $cvvError.show();
+        return false;
+    }
+}
+  
+//only validate credit card fields IF credit card payment method is selected
+//the user should not be able to submit the form without a payment option selected, "Select Payment Method" is not an option
+const $paymentError = $('<p class="error">Please select a payment method</p>');
+$('#payment').after($paymentError);
+$paymentError.hide();
 
+function validPayment() {
     if ($('#payment option:selected').val() === 'credit card') {
-        if (validCredit($ccInput) && validZip($zipInput) && validCvv($cvvInput)) {
-            console.log('credit information valid');
+        const credit = validCredit();
+        const zip = validZip();
+        const cvv = validCvv();
+        if (credit && zip && cvv) {
             return true;
         } else {
-            console.log('credit information invalid');
             return false;
         }
-    } 
-}
-
-/* function validListener(validator) {
-    return e => {
-        const userInput = e.target.value;
-        const validatorResult = validator(userInput);
-        const valid = userInput !== "" && validatorResult;
-        const errorSpan = e.target.nextElementSibling;
-        if (valid) {
-            e.target.style.borderColor = '';
-        } else {
-            e.target.style.borderColor = 'red';
-            errorSpan.style.display = '';
-        }
+    } else if ($('#payment option:selected').val() === 'select_method') {
+        $paymentError.show();
+        return false;
+    } else {
+        return true;
     }
-} */
-
-/* ccNum.addEventListener('change', validListener(validCredit));
-
-zipCode.addEventListener('change', validListener(validZip));
-
-cvv.addEventListener('change', validListener(validCvv)); */
-
+}
 
 //user must select at least one checkbox in the activities list
 //display an error indication if theres a validation error
 //error message on submit of the form
 
-const $activitiesError = $('<span class="error-span">At least one activity must be selected</span>');
+const $activitiesError = $('<span class="error">At least one activity must be selected</span>');
 appendError($('.activities legend'), $activitiesError);
 
 function validActivity () {
@@ -252,37 +289,34 @@ function validActivity () {
     }
 }
 
-$('form').submit(function(e) {
-    const a = validActivity();
-    const b = validPayment();
-    if (a && b) {
-        console.log('form submitted');
-    } else {
-        e.preventDefault();
-        console.log('form not submitted');
-    }
-});
-
-/* 
-need to make the form check all validation upon submit SINGLE EVENT LISTENER 
+/* need to make the form check all validation upon submit SINGLE EVENT LISTENER 
 FOR THE FORM, CALLING EACH SECTIONS VALIDATOR FUNCTION- form cannot
 be submitted (the page does not refresh when the submit button is 
 clicked) until all the following are true (name isn't blank, email is
 validly formatted, at least one checkbox is selected, if cc is selected
 cc number zip code and cvv are validly formatted) - error messages
-for all of these need to appear upon submit as well
+for all of these need to appear upon submit as well */
 
-only validate credit card fields IF credit card payment method is 
-selected
+const $submitError = $('<div class="error">There was a problem with your submission. Please complete all required fields.</div>');
+$('.container').before($submitError);
+$submitError.hide();
 
-keep real time validation of name and email
-add extra conditional message for email address
+$('form').submit(function(e) {
+    const a = validActivity();
+    const b = validPayment();
+    const c = validName();
+    const d = validEmail();
+    if (a && b && c && d) {
+        alert('Your registration has been submitted.');
+    } else {
+        e.preventDefault();
+        $('html').scrollTop(0);
+        $submitError.slideDown(1000).delay(3000).slideUp();
+    }
+});
 
-try to refactor to get rid of validListener function - i don't really 
-understand it and it only works on input because it uses e.target
 
-refactor to get rid of repeating creations of error messages
-
+/*
 try to get ok message to appear in the same place as the error message
 when correctly formatted
  */
