@@ -20,7 +20,7 @@ $('form').attr('novalidate', 'novalidate');
 $name.focus();
 
 //function to append an error message and immediately hide it
-function appendError(element, error) {
+const appendError = (element, error) => {
     element.append(error);
     error.hide();
 }
@@ -30,12 +30,10 @@ const $nameError = $('<span class="error">Please enter a name</span>');
 appendError($('label[for="name"]'), $nameError);
 
 //function to validate format of users input for Name
-function nameTest(name) {
-    return /^\D+$/.test(name);
-}
+const nameTest = name => /^\D+$/.test(name);
 
 //function to check validity of users input for Name, format border, and hide or display error message
-function validName() {
+const validName = () => {
     const $nameInput = $name.val();
     if (nameTest($nameInput)) {
         $name.css('border-color', "");
@@ -58,12 +56,10 @@ const $emailError = $('<span class="error">Please enter a valid email address</s
 appendError($('label[for="mail"]'), $emailError);
 
 //function to validate format of users input for Email
-function emailTest(email) {
-    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
-}
+const emailTest = email => /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 
 //function to check validity of users input for Email, format border, and hide or display error message
-function validEmail() {
+const validEmail = () => {
     const $emailInput = $email.val();
     if (emailTest($emailInput)) {
         $email.css('border-color', "");
@@ -161,7 +157,7 @@ const $activitiesError = $('<span class="error">At least one activity must be se
 appendError($('.activities legend'), $activitiesError);
 
 //function to make sure user selects at least on checkbox in the activities list, and display or hide error message
-function validActivity() {
+const validActivity = () => {
     const $activitiesChecked = $('input:checked').length;
     if ($activitiesChecked === 0) {
         $activitiesError.show();
@@ -196,12 +192,10 @@ const $ccError = $('<p class="error">Please enter a credit card number that is b
 appendError($creditDiv, $ccError);
 
 //function to validate format of users input for Card Number
-function creditTest(creditCard) {
-    return /^\d{13,16}$/.test(creditCard);
-}
+const creditTest = creditCard => /^\d{13,16}$/.test(creditCard);
 
 //function to check validity of users input for Card Number, format border, and hide or display conditional error message
-function validCredit() {
+const validCredit = () => {
     const $ccInput = $ccNum.val();
     if ($ccInput === "") {
         $ccNum.css('border-color', 'red');
@@ -226,12 +220,10 @@ const $zipError = $('<p class="error">Please enter a valid zip code</p>');
 appendError($creditDiv, $zipError);
 
 //function to validate format of users input for Zip Code
-function zipTest(zipCode) {
-    return /^\d{5}$/.test(zipCode);
-}
+const zipTest = zipCode => /^\d{5}$/.test(zipCode);
 
 //function to check validity of users input for Zip Code, format border, and hide or display error message
-function validZip() {
+const validZip = () => {
     const $zipInput = $zipCode.val();
     if (zipTest($zipInput)) {
         $zipCode.css('border-color', "");
@@ -249,12 +241,11 @@ const $cvvError = $('<p class="error">Please enter a valid CVV</p>');
 appendError($creditDiv, $cvvError);
 
 //function to validate format of users input for CVV
-function cvvTest(cvv) {
-    return /^\d{3}$/.test(cvv);
-}
+const cvvTest = cvv => /^\d{3}$/.test(cvv);
+
 
 //function to check validity of users input for CVV, format border, and hide or display error message
-function validCvv() {
+const validCvv = () => {
     const $cvvInput = $cvv.val();
     if (cvvTest($cvvInput)) {
         $cvv.css('border-color', "");
@@ -274,7 +265,7 @@ $paymentError.hide();
 
 //function used to make sure all credit card fields are valid only if the credit card payment method is selected
 //display an error if the user submits the form without a payment option selected
-function validPayment() {
+const validPayment = () => {
     if ($('#payment option:selected').val() === 'credit card') {
         const credit = validCredit();
         const zip = validZip();
