@@ -13,24 +13,24 @@ button {
 }
 
 body {
-  	font: 1em/1.5;
-  	color: #352208;
-	background: #877953;
+	font: 1em/1.5;
+	color: #352208;
+	background: #D58255;
 }
 
 header {
 	text-align: center;
-	color: #FCD0A1;
+	color: #F8CED6;
 	opacity: .8;
 }
 
 header span {
-	font-size: 2.2em;
+	font-size: 2.5em;
+	font-weight: 700;
 }
 
 h1 {
-	font-size: 2.5em;
-	text-shadow: 0 1px 0 #E1AA7D;
+	font-size: 2.7em;
 	margin: 0;
 }
 
@@ -44,7 +44,7 @@ a {
 
 form {
 	padding: .875em 1.875em 1.875em;
-	background: #E1AA7D;
+	background: #F8CEC3;
 	opacity: .95;
 }
 
@@ -67,7 +67,7 @@ button {
 legend {
 	font-weight: 500;
 	padding-top: .5em;
-	border-top: 2px solid #C48370;
+	border-top: 2px solid #B65E00;
 	margin-bottom: 1.125em;
 }
 
@@ -92,15 +92,15 @@ input {
 	font-size: 1em;
 	font-weight: 500;
 	padding: .8em;
-	background: #FCD0A1;
-	border: 2px solid #FCD0A1;
+	background: #FDF2F4;
+	border: 2px solid #F4AFA4;
 	border-radius: 1em;
 	outline: none;
 }
 
 input:focus {
 	background: #fff;
-	border-color: #C48370;
+	border-color: #EF8D7D;
 	transition: border-color .4s, background-color .4s;
 }
 
@@ -112,37 +112,37 @@ input[type="radio"] {
 button {
 	color: #fff;
 	padding: .55em 1.25em;
-	background: #C48370;
+	background: #B65E00;
 	margin: 1.25em 0 .5em;
 	cursor: pointer;
 }
 
 button:hover {
-	background: #7B6B43;
+	background: #EF8D7D;
 }
 
 span.error {
-	color: #DF0101;
+	color: #DB0622;
 	font-size: .9em;
 	position: relative;
 	left: 1em;
 }
 
 p.error {
-	color: #DF0101;
+	color: #DB0622;
 	position: relative;
 }
 
 div.error {
-    color: #DF0101;
-    background-color: #E1AA7D;
+	color: #DB0622;
+	background-color: #E1AA7D;
 	padding: 1em;
 	text-align: center;
-    border-radius: 1em;
-    display: block;
+	border-radius: 1em;
+	display: block;
 	max-width: 680px;
 	margin: auto;
-    margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 /* ================================= 

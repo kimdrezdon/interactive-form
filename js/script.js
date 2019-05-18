@@ -40,7 +40,7 @@ const validName = () => {
         $nameError.hide();
         return true;
     } else {
-        $name.css('border-color', 'red');
+        $name.css('border-color', '#DB0622');
         $nameError.show();
         return false;
     }
@@ -66,7 +66,7 @@ const validEmail = () => {
         $emailError.hide();
         return true;
     } else {
-        $email.css('border-color', 'red');
+        $email.css('border-color', '#DB0622');
         $emailError.show();
         return false;
     }
@@ -198,7 +198,7 @@ const creditTest = creditCard => /^\d{13,16}$/.test(creditCard);
 const validCredit = () => {
     const $ccInput = $ccNum.val();
     if ($ccInput === "") {
-        $ccNum.css('border-color', 'red');
+        $ccNum.css('border-color', '#DB0622');
         $ccBlankError.show();
         $ccError.hide();
         return false;
@@ -208,7 +208,7 @@ const validCredit = () => {
         $ccBlankError.hide();
         return true;
     } else {
-        $ccNum.css('border-color', 'red');
+        $ccNum.css('border-color', '#DB0622');
         $ccError.show();
         $ccBlankError.hide();
         return false;
@@ -230,7 +230,7 @@ const validZip = () => {
         $zipError.hide();
         return true;
     } else {
-        $zipCode.css('border-color', 'red');
+        $zipCode.css('border-color', '#DB0622');
         $zipError.show();
         return false;
     }
@@ -252,7 +252,7 @@ const validCvv = () => {
         $cvvError.hide();
         return true;
     } else {
-        $cvv.css('border-color', 'red');
+        $cvv.css('border-color', '#DB0622');
         $cvvError.show();
         return false;
     }
