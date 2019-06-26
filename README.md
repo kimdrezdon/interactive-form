@@ -1,4 +1,4 @@
-# techdegree-project-3: Interactive Form
+# Interactive Form
 
 This project uses unobtrusive JavaScript to add functionality to a registration form. 
 
