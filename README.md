@@ -17,19 +17,19 @@ The credit card payment information is shown by default. When the user selects a
 
 Upon submit of the form, the following form areas are checked for validity and completeness. 
 
-    - Name = Cannot be blank or contain any numbers
+    * Name = Cannot be blank or contain any numbers
 
-    - Email = Cannot be blank and must be formatted like a valid email address
+    * Email = Cannot be blank and must be formatted like a valid email address
 
-    - Activites = At least one checkbox must be checked
+    * Activites = At least one checkbox must be checked
 
-    - Only if the Credit Card option is selected:
+    * Only if the Credit Card option is selected:
 
-      - Card Number = Must contain a 13-16 digit number
+      * Card Number = Must contain a 13-16 digit number
 
-      - Zip Code = Must contain a 5 digit number
-      
-      - CVV = Must contain a 3 digit number
+      * Zip Code = Must contain a 5 digit number
+
+      * CVV = Must contain a 3 digit number
 
 If any of these are invalid the form prevents default refresh and displays the corresponding error messages. 
 An error message also flashes on the top of the screen informing the user that the submission did not go through and will need to fix the errors that are displayed on the page.
