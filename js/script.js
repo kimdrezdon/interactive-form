@@ -111,26 +111,26 @@ $('#design').change(function () {
 
 //when the user selects a workshop, disable the checkbox of conflicting workshops and grey-out its text
 //when the user unselects a workshop, re-enable the conflicting workshops
-$checkboxes.change(function () {
-    if ($checkboxes.eq(1).is(":checked")) {
-        $checkboxes.eq(3).prop('disabled', true).parent().css('color', 'grey');
-    } else {
-        $checkboxes.eq(3).prop('disabled', false).parent().css('color', '');
-    }
-    if ($checkboxes.eq(2).is(":checked")) {
-        $checkboxes.eq(4).prop('disabled', true).parent().css('color', 'grey');
-    } else {
-        $checkboxes.eq(4).prop('disabled', false).parent().css('color', '');
-    }
-    if ($checkboxes.eq(3).is(":checked")) {
-        $checkboxes.eq(1).prop('disabled', true).parent().css('color', 'grey');
-    } else {
-        $checkboxes.eq(1).prop('disabled', false).parent().css('color', '');
-    }
-    if ($checkboxes.eq(4).is(":checked")) {
-        $checkboxes.eq(2).prop('disabled', true).parent().css('color', 'grey');
-    } else {
-        $checkboxes.eq(2).prop('disabled', false).parent().css('color', '');
+const setProp = (index, setting) => {
+    let color = setting ? 'grey' : '';
+    $checkboxes.eq(index).prop('disabled', setting).parent().css('color', color);
+}
+
+const conflict = {
+    1: 3,
+    2: 4, 
+    3: 1,
+    4: 2
+}
+
+$checkboxes.change(function () {  
+    for (let i = 1; i <= 4; i++) {
+        let conflictIndex = conflict[i];
+        if ($checkboxes.eq(i).is(":checked")) {
+            setProp(conflictIndex, true);
+        } else {
+            setProp(conflictIndex, false);
+        }
     }
 });
 
