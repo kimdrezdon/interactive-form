@@ -25,6 +25,23 @@ const appendError = (element, error) => {
     error.hide();
 }
 
+// Function to either show or hide error message and change border color of element
+
+const showHideError = (test, element, error, blankError) => {
+    if (blankError) {
+        blankError.hide();
+    }
+    if (test) {
+        element.css('border-color', "");
+        error.hide();
+        return true;
+    } else {
+        element.css('border-color', '#DB0622');
+        error.show();
+        return false;
+    }
+}
+
 //create and append error span for Name input field
 const $nameError = $('<span class="error">Please enter a name</span>');
 appendError($('label[for="name"]'), $nameError);
@@ -35,15 +52,7 @@ const nameTest = name => /^\D+$/.test(name);
 //function to check validity of users input for Name, format border, and hide or display error message
 const validName = () => {
     const $nameInput = $name.val();
-    if (nameTest($nameInput)) {
-        $name.css('border-color', "");
-        $nameError.hide();
-        return true;
-    } else {
-        $name.css('border-color', '#DB0622');
-        $nameError.show();
-        return false;
-    }
+    showHideError(nameTest($nameInput), $name, $nameError);
 }
 
 //run the validName function to display validation error in real time
@@ -61,15 +70,7 @@ const emailTest = email => /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 //function to check validity of users input for Email, format border, and hide or display error message
 const validEmail = () => {
     const $emailInput = $email.val();
-    if (emailTest($emailInput)) {
-        $email.css('border-color', "");
-        $emailError.hide();
-        return true;
-    } else {
-        $email.css('border-color', '#DB0622');
-        $emailError.show();
-        return false;
-    }
+    showHideError(emailTest($emailInput), $email, $emailError);
 }
 
 //run the validEmail function to display validation error in real time
@@ -202,16 +203,8 @@ const validCredit = () => {
         $ccBlankError.show();
         $ccError.hide();
         return false;
-    } else if (creditTest($ccInput)) {
-        $ccNum.css('border-color', "");
-        $ccError.hide();
-        $ccBlankError.hide();
-        return true;
     } else {
-        $ccNum.css('border-color', '#DB0622');
-        $ccError.show();
-        $ccBlankError.hide();
-        return false;
+        showHideError(creditTest($ccInput), $ccNum, $ccError, $ccBlankError);
     }
 }
 
@@ -225,15 +218,7 @@ const zipTest = zipCode => /^\d{5}$/.test(zipCode);
 //function to check validity of users input for Zip Code, format border, and hide or display error message
 const validZip = () => {
     const $zipInput = $zipCode.val();
-    if (zipTest($zipInput)) {
-        $zipCode.css('border-color', "");
-        $zipError.hide();
-        return true;
-    } else {
-        $zipCode.css('border-color', '#DB0622');
-        $zipError.show();
-        return false;
-    }
+    showHideError(zipTest($zipInput), $zipCode, $zipError);
 }
 
 //create and append error p for CVV input field
@@ -243,19 +228,10 @@ appendError($creditDiv, $cvvError);
 //function to validate format of users input for CVV
 const cvvTest = cvv => /^\d{3}$/.test(cvv);
 
-
 //function to check validity of users input for CVV, format border, and hide or display error message
 const validCvv = () => {
     const $cvvInput = $cvv.val();
-    if (cvvTest($cvvInput)) {
-        $cvv.css('border-color', "");
-        $cvvError.hide();
-        return true;
-    } else {
-        $cvv.css('border-color', '#DB0622');
-        $cvvError.show();
-        return false;
-    }
+    showHideError(cvvTest($cvvInput), $cvv, $cvvError);
 }
 
 //create and append error p for payment method dropdown menu
