@@ -52,7 +52,7 @@ const nameTest = name => /^\D+$/.test(name);
 //function to check validity of users input for Name, format border, and hide or display error message
 const validName = () => {
     const $nameInput = $name.val();
-    showHideError(nameTest($nameInput), $name, $nameError);
+    return showHideError(nameTest($nameInput), $name, $nameError);
 }
 
 //run the validName function to display validation error in real time
@@ -70,7 +70,7 @@ const emailTest = email => /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 //function to check validity of users input for Email, format border, and hide or display error message
 const validEmail = () => {
     const $emailInput = $email.val();
-    showHideError(emailTest($emailInput), $email, $emailError);
+    return showHideError(emailTest($emailInput), $email, $emailError);
 }
 
 //run the validEmail function to display validation error in real time
@@ -204,7 +204,7 @@ const validCredit = () => {
         $ccError.hide();
         return false;
     } else {
-        showHideError(creditTest($ccInput), $ccNum, $ccError, $ccBlankError);
+        return showHideError(creditTest($ccInput), $ccNum, $ccError, $ccBlankError);
     }
 }
 
@@ -218,7 +218,7 @@ const zipTest = zipCode => /^\d{5}$/.test(zipCode);
 //function to check validity of users input for Zip Code, format border, and hide or display error message
 const validZip = () => {
     const $zipInput = $zipCode.val();
-    showHideError(zipTest($zipInput), $zipCode, $zipError);
+    return showHideError(zipTest($zipInput), $zipCode, $zipError);
 }
 
 //create and append error p for CVV input field
@@ -231,7 +231,7 @@ const cvvTest = cvv => /^\d{3}$/.test(cvv);
 //function to check validity of users input for CVV, format border, and hide or display error message
 const validCvv = () => {
     const $cvvInput = $cvv.val();
-    showHideError(cvvTest($cvvInput), $cvv, $cvvError);
+    return showHideError(cvvTest($cvvInput), $cvv, $cvvError);
 }
 
 //create and append error p for payment method dropdown menu
@@ -273,6 +273,7 @@ $('form').submit(function (e) {
     const c = validName();
     const d = validEmail();
     if (a && b && c && d) {
+        console.log()
         alert('Your registration has been submitted.');
     } else {
         e.preventDefault();
