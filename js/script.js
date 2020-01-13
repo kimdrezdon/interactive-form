@@ -90,22 +90,24 @@ $("#title").change(function () {
     }
 });
 
-//hide the COLOR label and select menu 
+//hide the COLOR label and select menu on page load
 $colorDiv.hide();
 
 //only display the Color options that match the option selected in the Design drop down menu
 //when a new Design is selected, the Color drop down menu is updated
 //display the Color label and select menu only when a T-Shirt design is selected from the Design menu
 $('#design').change(function () {
-    $allColors.detach();
     $colorDiv.show();
     const $userDesign = $('#design option:selected');
     if ($userDesign.val() === 'js puns') {
-        $colorMenu.append($punColors);
+        $punColors.show();
+        $punColors.eq(0).prop('selected', true);
+        $heartColors.hide();
     } else if ($userDesign.val() === 'heart js') {
-        $colorMenu.append($heartColors);
+        $heartColors.show();
+        $heartColors.eq(0).prop('selected', true);
+        $punColors.hide();
     } else {
-        $colorMenu.append($allColors);
         $colorDiv.hide();
     }
 });
