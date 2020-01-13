@@ -83,11 +83,7 @@ $otherTitle.hide();
 
 //display the Other job role text field when Other is selected from the menu
 $("#title").change(function () {
-    if ($('#title option:selected').text() === 'Other') {
-        $otherTitle.show();
-    } else {
-        $otherTitle.hide();
-    }
+    $otherTitle.toggle($('#title option:selected').text() === 'Other');
 });
 
 //hide the COLOR label and select menu on page load
@@ -97,24 +93,20 @@ $colorDiv.hide();
 //when a new Design is selected, the Color drop down menu is updated
 //display the Color label and select menu only when a T-Shirt design is selected from the Design menu
 $('#design').change(function () {
-    $colorDiv.show();
     const $userDesign = $('#design option:selected');
+    $colorDiv.toggle($userDesign.val() !== 'select');
+    $punColors.toggle($userDesign.val() === 'js puns');
+    $heartColors.toggle($userDesign.val() === 'heart js');
     if ($userDesign.val() === 'js puns') {
-        $punColors.show();
         $punColors.eq(0).prop('selected', true);
-        $heartColors.hide();
     } else if ($userDesign.val() === 'heart js') {
-        $heartColors.show();
         $heartColors.eq(0).prop('selected', true);
-        $punColors.hide();
-    } else {
-        $colorDiv.hide();
-    }
+    } 
 });
 
 //when the user selects a workshop, disable the checkbox of conflicting workshops and grey-out its text
 //when the user unselects a workshop, re-enable the conflicting workshops
-const setProp = (index, setting) => {
+const setCheckboxProp = (index, setting) => {
     let color = setting ? 'grey' : '';
     $checkboxes.eq(index).prop('disabled', setting).parent().css('color', color);
 }
@@ -130,9 +122,9 @@ $checkboxes.change(function () {
     for (let i = 1; i <= 4; i++) {
         let conflictIndex = conflict[i];
         if ($checkboxes.eq(i).is(":checked")) {
-            setProp(conflictIndex, true);
+            setCheckboxProp(conflictIndex, true);
         } else {
-            setProp(conflictIndex, false);
+            setCheckboxProp(conflictIndex, false);
         }
     }
 });
