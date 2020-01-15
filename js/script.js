@@ -2,8 +2,6 @@ const $name = $('#name');
 const $email = $('#mail');
 const $otherTitle = $('#other-title');
 const $colorDiv = $('#colors-js-puns');
-const $colorMenu = $('#color');
-const $allColors = $('#color option');
 const $punColors = $('#color option:contains("JS Puns")');
 const $heartColors = $('#color option:contains("I \u2665 JS")');
 const $checkboxes = $('.activities input:checkbox');
@@ -26,11 +24,7 @@ const appendError = (element, error) => {
 }
 
 // Function to either show or hide error message and change border color of element
-
-const showHideError = (test, element, error, blankError) => {
-    if (blankError) {
-        blankError.hide();
-    }
+const showHideError = (test, element, error) => {
     if (test) {
         element.css('border-color', "");
         error.hide();
@@ -118,7 +112,7 @@ const conflict = {
     4: 2
 }
 
-$checkboxes.change(function () {  
+$checkboxes.change( () => {  
     for (let i = 1; i <= 4; i++) {
         let conflictIndex = conflict[i];
         if ($checkboxes.eq(i).is(":checked")) {
@@ -134,14 +128,16 @@ const $totalDiv = $('<div>Total Cost: $0.00 </div>');
 $totalDiv.insertAfter($('.activities'));
 
 //as the user selects and deselects activities, update the running total cost
-$checkboxes.change(function () {
+const $activities = $('.activities label');
+console.log(parseInt($activities.eq(0).text().slice(20), 10));
+
+$checkboxes.change( () => {
     let totalCost = 0;
-    if ($checkboxes.eq(0).is(":checked")) {
-        totalCost += 200;
-    }
-    $checkboxes.each(function (i) {
-        if (i > 0 && $checkboxes.eq(i).is(':checked')) {
-            totalCost += 100;
+    $checkboxes.each( i => {
+        if ($checkboxes.eq(i).is(':checked')) {
+            let detail = $activities.eq(i).text();
+            let costString = detail.slice(detail.indexOf('$') + 1);
+            totalCost += parseInt(costString, 10);
         }
     });
     $totalDiv.text('Total Cost:  $' + totalCost + '.00');
@@ -198,7 +194,8 @@ const validCredit = () => {
         $ccError.hide();
         return false;
     } else {
-        return showHideError(creditTest($ccInput), $ccNum, $ccError, $ccBlankError);
+        $ccBlankError.hide();
+        return showHideError(creditTest($ccInput), $ccNum, $ccError);
     }
 }
 
@@ -267,7 +264,6 @@ $('form').submit(function (e) {
     const c = validName();
     const d = validEmail();
     if (a && b && c && d) {
-        console.log()
         alert('Your registration has been submitted.');
     } else {
         e.preventDefault();
@@ -275,3 +271,4 @@ $('form').submit(function (e) {
         $submitError.slideDown(1000).delay(3000).slideUp();
     }
 });
+
