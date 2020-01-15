@@ -128,18 +128,22 @@ const setCheckboxProp = (element, setting) => {
     element.prop('disabled', setting).parent().css('color', color);
 }
 
-$checkboxes.change( () => {  
-    $checkboxes.each( i => {
-        let $detail = $activities.eq(i).text();
-        let $timeString = $detail.slice(($detail.indexOf('—') + 2), $detail.indexOf(','));
-        let $conflicting = $(`.activities label:contains(${$timeString})`).not($(`.activities label:contains(${$detail})`)).children();
-
-        if ($checkboxes.eq(i).is(':checked')) {
-            setCheckboxProp($conflicting, true);
+$checkboxes.change( e => {
+    let currentIndex = $checkboxes.index(e.target);
+    let $detail = $activities.eq(currentIndex).text();
+    let $timeString = $detail.slice(($detail.indexOf('—') + 2), $detail.indexOf(','));
+    let $conflicting = $($(`.activities label:contains(${$timeString})`)).not($(`.activities label:contains(${$detail})`));
+    if ($conflicting.length > 0) {
+        if ($checkboxes.eq(currentIndex).is(':checked')) {
+            $conflicting.each( i => {
+                setCheckboxProp($conflicting.eq(i).children(), true);
+            })
         } else {
-            setCheckboxProp($conflicting, false);
+            $conflicting.each( i => {
+                setCheckboxProp($conflicting.eq(i).children(), false);
+            })
         }
-    });
+    }
 });
 
 // Create and append a div below the list of activities to display the total cost
