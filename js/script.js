@@ -123,27 +123,23 @@ $('#design').change(function () {
 // workshops and grey-out its text. When the user unselects a workshop,
 // re-enable the conflicting workshops
 
-const setCheckboxProp = (index, setting) => {
+const setCheckboxProp = (element, setting) => {
     let color = setting ? 'grey' : '';
-    $checkboxes.eq(index).prop('disabled', setting).parent().css('color', color);
-}
-
-const conflict = {
-    1: 3,
-    2: 4, 
-    3: 1,
-    4: 2
+    element.prop('disabled', setting).parent().css('color', color);
 }
 
 $checkboxes.change( () => {  
-    for (let i = 1; i <= 4; i++) {
-        let conflictIndex = conflict[i];
-        if ($checkboxes.eq(i).is(":checked")) {
-            setCheckboxProp(conflictIndex, true);
+    $checkboxes.each( i => {
+        let $detail = $activities.eq(i).text();
+        let $timeString = $detail.slice(($detail.indexOf('—') + 2), $detail.indexOf(','));
+        let $conflicting = $(`.activities label:contains(${$timeString})`).not($(`.activities label:contains(${$detail})`)).children();
+
+        if ($checkboxes.eq(i).is(':checked')) {
+            setCheckboxProp($conflicting, true);
         } else {
-            setCheckboxProp(conflictIndex, false);
+            setCheckboxProp($conflicting, false);
         }
-    }
+    });
 });
 
 // Create and append a div below the list of activities to display the total cost
@@ -158,9 +154,9 @@ $checkboxes.change( () => {
     let totalCost = 0;
     $checkboxes.each( i => {
         if ($checkboxes.eq(i).is(':checked')) {
-            let detail = $activities.eq(i).text();
-            let costString = detail.slice(detail.indexOf('$') + 1);
-            totalCost += parseInt(costString, 10);
+            let $detail = $activities.eq(i).text();
+            let $costString = $detail.slice($detail.indexOf('$') + 1);
+            totalCost += parseInt($costString, 10);
         }
     });
     $totalDiv.text('Total Cost:  $' + totalCost + '.00');
