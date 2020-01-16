@@ -1,3 +1,4 @@
+const $form = $('form');
 const $name = $('#name');
 const $email = $('#mail');
 const $otherTitle = $('#other-title');
@@ -12,13 +13,40 @@ const $ccNum = $('#cc-num');
 const $zipCode = $('#zip');
 const $cvv = $('#cvv');
 
-// Add novalidate attribute to form to prevent default validation pop ups
 
-$('form').attr('novalidate', 'novalidate');
+
+/** PAGE LOAD **/
+
+// Add no-validate attribute to form to prevent default validation pop ups
+
+$form.attr('novalidate', 'novalidate');
 
 // On first page load, set focus on Name input field
 
 $name.focus();
+
+// Hide the COLOR label and select menu on page load
+
+$colorDiv.hide();
+
+// Display only the credit card div on page load, hide the Paypal and Bitcoin divs
+
+$paymentMethod.val('credit card').prop('selected', true);
+$creditDiv.nextAll().hide();
+
+// Hide the Other job role text field on page load
+
+$otherTitle.hide();
+
+// Create and append a div below the list of activities to display the total cost
+// of the activities selected
+
+const $totalDiv = $('<div>Total Cost: $0.00 </div>');
+$totalDiv.insertAfter($('.activities'));
+
+
+
+/** ERROR FUNCTIONS **/
 
 // Function to append an error message and immediately hide it
 
@@ -27,8 +55,7 @@ const appendError = (element, error) => {
     error.hide();
 }
 
-// Function to either show or hide error message and change border color of
-// element
+// Function to either show or hide error message and change border color of element
 
 const showHideError = (test, element, error) => {
     if (test) {
@@ -42,6 +69,10 @@ const showHideError = (test, element, error) => {
     }
 }
 
+
+
+/** BASIC INFO **/
+
 // Create and append error span for Name input field
 
 const $nameError = $('<span class="error">Please enter a name</span>');
@@ -51,8 +82,7 @@ appendError($('label[for="name"]'), $nameError);
 
 const nameTest = name => /^\D+$/.test(name);
 
-// Function to check validity of users input for Name, format border, and hide or
-// display error message
+// Function to check validity of users input for Name
 
 const validName = () => {
     const $nameInput = $name.val();
@@ -61,9 +91,7 @@ const validName = () => {
 
 // Run the validName function to display validation error in real time
 
-$name.keyup(function () {
-    validName();
-});
+$name.keyup( () => validName());
 
 // Create and append error span for Email input field
 
@@ -74,8 +102,7 @@ appendError($('label[for="mail"]'), $emailError);
 
 const emailTest = email => /^[^@]+@[^@.]+\.[a-z]+$/i.test(email);
 
-// Function to check validity of users input for Email, format border, and hide
-// or display error message
+// Function to check validity of users input for Email
 
 const validEmail = () => {
     const $emailInput = $email.val();
@@ -84,30 +111,22 @@ const validEmail = () => {
 
 // Run the validEmail function to display validation error in real time
 
-$email.keyup(function () {
-    validEmail();
-});
-
-// Hide the Other job role text field on page load
-
-$otherTitle.hide();
+$email.keyup( () => validEmail());
 
 // Display the Other job role text field when Other is selected from the menu
 
-$("#title").change(function () {
-    $otherTitle.toggle($('#title option:selected').text() === 'Other');
-});
+$("#title").change( () => $otherTitle.toggle($('#title option:selected').text() === 'Other'));
 
-// Hide the COLOR label and select menu on page load
 
-$colorDiv.hide();
+
+/** T-SHIRT INFO **/
 
 // Only display the Color options that match the option selected in the Design
 // drop down menu. When a new Design is selected, the Color drop down menu is
 // updated. Display the Color label and select menu only when a T-Shirt design
 // is selected from the Design menu
 
-$('#design').change(function () {
+$('#design').change( () => {
     const $userDesign = $('#design option:selected');
     $colorDiv.toggle($userDesign.val() !== 'select');
     $punColors.toggle($userDesign.val() === 'js puns');
@@ -118,6 +137,10 @@ $('#design').change(function () {
         $heartColors.eq(0).prop('selected', true);
     } 
 });
+
+
+
+/** REGISTER FOR ACTIVITIES **/
 
 // When the user selects a workshop, disable the checkbox of conflicting
 // workshops and grey-out its text. When the user unselects a workshop,
@@ -146,12 +169,6 @@ $checkboxes.change( e => {
     }
 });
 
-// Create and append a div below the list of activities to display the total cost
-// of the activities selected
-
-const $totalDiv = $('<div>Total Cost: $0.00 </div>');
-$totalDiv.insertAfter($('.activities'));
-
 // As the user selects and deselects activities, update the running total cost
 
 $checkboxes.change( () => {
@@ -171,27 +188,25 @@ $checkboxes.change( () => {
 const $activitiesError = $('<span class="error">At least one activity must be selected</span>');
 appendError($('.activities legend'), $activitiesError);
 
-// Function to make sure user selects at least on checkbox in the activities list, and display or hide error message
+// Function to make sure user selects at least one checkbox in the activities list
 
 const validActivity = () => {
     const $activitiesChecked = $('input:checked').length;
+    $activitiesError.toggle($activitiesChecked === 0);
     if ($activitiesChecked === 0) {
-        $activitiesError.show();
         return false;
     } else {
         return true;
     }
 }
 
-// Display only the credit card div on page load, hide the Paypal and Bitcoin divs
 
-$paymentMethod.val('credit card').prop('selected', true);
-$creditDiv.nextAll().hide();
+
+/** PAYMENT INFO **/
 
 // Display the correct payment div when the user selects Paypal, CC or Bitcoin
-// from the dropdown menu
 
-$paymentMethod.change(function () {
+$paymentMethod.change( () => {
     const $userPayment = $('#payment option:selected');
     $paymentMethod.nextAll().hide();
     if ($userPayment.val() === 'credit card') {
@@ -215,18 +230,16 @@ appendError($creditDiv, $ccError);
 
 const creditTest = creditCard => /^\d{13,16}$/.test(creditCard);
 
-// Function to check validity of users input for Card Number, format border, and
-// hide or display conditional error message
+// Function to check validity of users input for Card Number
 
 const validCredit = () => {
     const $ccInput = $ccNum.val();
+    $ccBlankError.toggle($ccInput === "");
     if ($ccInput === "") {
         $ccNum.css('border-color', '#DB0622');
-        $ccBlankError.show();
         $ccError.hide();
         return false;
     } else {
-        $ccBlankError.hide();
         return showHideError(creditTest($ccInput), $ccNum, $ccError);
     }
 }
@@ -239,8 +252,7 @@ appendError($creditDiv, $zipError);
 // Function to validate format of users input for Zip Code
 const zipTest = zipCode => /^\d{5}$/.test(zipCode);
 
-// Function to check validity of users input for Zip Code, format border, and
-// hide or display error message
+// Function to check validity of users input for Zip Code
 
 const validZip = () => {
     const $zipInput = $zipCode.val();
@@ -256,7 +268,7 @@ appendError($creditDiv, $cvvError);
 
 const cvvTest = cvv => /^\d{3}$/.test(cvv);
 
-// Function to check validity of users input for CVV, format border, and hide or display error message
+// Function to check validity of users input for CVV
 
 const validCvv = () => {
     const $cvvInput = $cvv.val();
@@ -291,8 +303,11 @@ const validPayment = () => {
     }
 }
 
-// Create and append error div at top of page for any form submit validation
-// errors
+
+
+/** FORM SUBMISSION **/
+
+// Create and append error div at top of page for any form submit validation errors
 
 const $submitError = $('<div class="error">There was a problem with your submission. Please complete all required fields.</div>');
 $('.container').before($submitError);
@@ -303,7 +318,7 @@ $submitError.hide();
 // submit error div. If all required fields are valid, submit form and display
 // confirmation alert
 
-$('form').submit(function (e) {
+$form.submit( e => {
     const a = validActivity();
     const b = validPayment();
     const c = validName();
@@ -314,5 +329,6 @@ $('form').submit(function (e) {
         e.preventDefault();
         $('html').scrollTop(0);
         $submitError.slideDown(1000).delay(3000).slideUp();
+        console.log(`${a}, ${b}, ${c}, ${d}`);
     }
 });
