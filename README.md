@@ -1,6 +1,6 @@
 # Interactive Form
 
-### Techdegree Project 3
+### Treehouse Full Stack Techdegree - Project 3
 
 This project uses unobtrusive JavaScript to add functionality to a registration form.
 
